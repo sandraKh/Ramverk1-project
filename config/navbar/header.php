@@ -16,7 +16,7 @@ return [
         ],
         [
             "text" => "Frågor",
-            "url" => "questions",
+            "url" => "question",
             "title" => "Frågor",
         ],
         [
