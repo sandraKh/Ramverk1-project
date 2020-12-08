@@ -6,6 +6,7 @@ use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Anax\User\HTMLForm\UserLoginForm;
 use Anax\User\HTMLForm\CreateUserForm;
+use Anax\User\HTMLForm\EditUserForm;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -52,12 +53,12 @@ class UserController implements ContainerInjectableInterface
      */
      public function indexActionGet() : object
      {
-         $currUser = $this->di->session->get("UserLogged");
-         if (!$currUser) {
+         $current = $this->di->session->get("UserLogged");
+         if (!$current) {
              return $this->di->response->redirect("user/login");
          }
 
-         return $this->di->response->redirect("user/profile/{$currUser}");
+         return $this->di->response->redirect("user/profile/{$current}");
      }
 
 
@@ -123,6 +124,30 @@ class UserController implements ContainerInjectableInterface
 
         return $page->render([
             "title" => "A create user page",
+        ]);
+    }
+
+    public function editAction() : object
+    {
+        if (!$this->di->session->get('UserLogged')) {
+            return $this->di->response->redirect("user/login");
+        }
+
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $current = $this->di->session->get('UserLogged');
+        $info = $user->find('id', $current);
+
+        $edit = new EditUserForm($this->di, $info);
+        $edit->check();
+
+        $page = $this->di->get("page");
+        $page->add("anax/v2/article/default", [
+            "content" => $edit->getHTML(),
+        ]);
+
+        return $page->render([
+            "title" => "Redigera användare",
         ]);
     }
 

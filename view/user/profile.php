@@ -7,7 +7,7 @@ namespace Anax\View;
     <div class = "profileInfo">
         <h2><?= $user->acronym ?></strong></h2>
         <img class="gravatar" src="<?= "https://www.gravatar.com/avatar/" . md5(strtolower(trim($user->email))) . "?d=" . urlencode("https://www.gravatar.com/avatar") . "&s=" . 175; ?>" alt="" />
-        <p>Registrerad sedan: <i><?= $user->created ?></i></p>
+        <p>Registrerad: <i><?= $user->created ?></i></p>
     </div>
     <div class="profileBtn">
         <?php if ($this->di->session->get('UserLogged') == $user->id) : ?>

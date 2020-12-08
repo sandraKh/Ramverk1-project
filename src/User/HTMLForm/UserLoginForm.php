@@ -23,7 +23,7 @@ class UserLoginForm extends FormModel
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "User Login"
+                "legend" => "Logga in användare"
             ],
             [
                 "user" => [
@@ -40,8 +40,13 @@ class UserLoginForm extends FormModel
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Login",
+                    "value" => "Logga in",
                     "callback" => [$this, "callbackSubmit"]
+                ],
+                "create" => [
+                    "type"     => "submit",
+                    "value"    => "Registrera",
+                    "callback" => [$this, "register"],
                 ],
             ]
         );
@@ -92,4 +97,9 @@ class UserLoginForm extends FormModel
          $this->form->addOutput("User " . $user->acronym . " logged in.");
          return true;
      }
+
+     public function register()
+    {
+        $this->di->response->redirect("user/create");
+    }
 }
