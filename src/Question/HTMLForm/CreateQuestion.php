@@ -5,6 +5,7 @@ namespace Anax\Question\HTMLForm;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Anax\Question\Question;
+use Anax\Tag\Tag;
 
 /**
  * Form to create an item.
@@ -40,8 +41,8 @@ class CreateQuestion extends FormModel
                     "validation" => ["not_empty"],
                 ],
                 "tags" => [
-                    "type"        => "textarea",
-                    "placeholder"        => "T.ex Fantasy, Drakar, Klassiker",
+                    "type"  => "textarea",
+                    "placeholder" => "T.ex Fantasy, Drakar, Klassiker",
                 ],
                 "submit" => [
                     "type" => "submit",
@@ -64,8 +65,18 @@ class CreateQuestion extends FormModel
 
         $questionId = $question->id;
 
-        //TODO fixa Taggar!
+        $tag = new Tag();
+        $tag->setDb($this->di->get("dbqb"));
+        $tags = $this->form->value("tags");
+        $alltag = explode(",", $tags);
 
+        foreach ($alltag as $individualTag) {
+            $tag = new Tag();
+            $tag->setDb($this->di->get("dbqb"));
+            $tag->questionId = $questionId;
+            $tag->tag = str_replace(' ', '', $individualTag);
+            $tag->save();
+            }
         return true;
     }
 

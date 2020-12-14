@@ -18,12 +18,14 @@ endif;
         <td><h3><a href="<?= url("question/view/{$item->questionId}"); ?>"><?= $item->title ?></a> </h3></td>
     </tr>
     <tr>
-        <td><?= $item->text ?></td>
+        <div class="textQuestion">
+            <td><?= $item->text ?></td>
+        </div>
     </tr>
     <tr>
         <td>
             Fråga ställd av: <?= $userInfo->acronym ?></p>
-            <a href="<?= url("comment/create/{$item->questionId}"); ?>" class="commentbtn">Svara</a>
+            <!-- <a href="<?= url("comment/create/{$item->questionId}"); ?>" class="commentbtn">Svara</a> -->
         </td>
     </tr>
 </table>
