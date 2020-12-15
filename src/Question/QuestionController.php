@@ -39,9 +39,11 @@ class QuestionController implements ContainerInjectableInterface
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $userInfo = $user->find('id', $item->userId);
-
+        // $mdfilter = new Filter()
+        // $mdfilter = $mdfilter->markdown($item->text);
         $page->add("question/crud/view-all", [
             "item" => $item,
+            // "filter" => $filter,
             "userInfo" => $userInfo,
             ]);
         }
