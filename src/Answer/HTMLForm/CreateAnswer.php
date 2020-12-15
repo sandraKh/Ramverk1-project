@@ -7,6 +7,7 @@ use Psr\Container\ContainerInterface;
 use Anax\Question\Question;
 use Anax\User\User;
 use Anax\Answer\Answer;
+use Anax\Filter\Filter;
 
 /**
  * Form to create an item.
@@ -52,7 +53,9 @@ class CreateAnswer extends FormModel
         $answer->questionId = $this->questionId;
         $answer->answerId = $this->answerId;
         $answer->userId = $this->di->get("session")->get("UserLogged");
-        $answer->text = $this->form->value("Svara");
+        $mdFilter= new Filter();
+        $answer->text = $mdFilter->markdown($this->form->value("Svara"));
+
         $answer->save();
 
         $user = new User();

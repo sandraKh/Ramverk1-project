@@ -8,6 +8,7 @@ use Anax\Question\Question;
 use Anax\Answer\Answer;
 use Anax\User\User;
 use Anax\Comment\Comment;
+use Anax\Filter\Filter;
 
 /**
  * Form to create an item.
@@ -56,7 +57,8 @@ class CreateAnswerComment extends FormModel
         $comment->commentId = $this->commentId;
         $comment->answerId = $this->answerId;
         $comment->userId = $this->di->get("session")->get("UserLogged");
-        $comment->text = $this->form->value("Kommentera");
+        $mdFilter= new Filter();
+        $comment->text = $mdFilter->markdown($this->form->value("Kommentera"));
         $comment->save();
 
         $user = new User();

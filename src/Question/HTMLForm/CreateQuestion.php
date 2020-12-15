@@ -7,6 +7,7 @@ use Psr\Container\ContainerInterface;
 use Anax\Question\Question;
 use Anax\Tag\Tag;
 use Anax\User\User;
+use Anax\Filter\Filter;
 
 /**
  * Form to create an item.
@@ -60,7 +61,9 @@ class CreateQuestion extends FormModel
         $question->setDb($this->di->get("dbqb"));
         $question->userId  = $this->form->value("user");
         $question->title = $this->form->value("title");
-        $question->text = $this->form->value("text");
+
+        $mdFilter= new Filter();
+        $question->text = $mdFilter->markdown($this->form->value("text"));
         $question->save();
 
         $questionId = $question->id;
