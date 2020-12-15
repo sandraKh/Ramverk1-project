@@ -7,14 +7,16 @@ use Anax\Commons\ContainerInjectableTrait;
 use Anax\User\HTMLForm\UserLoginForm;
 use Anax\User\HTMLForm\CreateUserForm;
 use Anax\User\HTMLForm\EditUserForm;
-
+use Anax\Answer\Answer;
+use Anax\Comment\Comment;
+use Anax\Question\Question;
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
 
 /**
- * A sample controller to show how a controller class can be implemented.
- */
+* A sample controller to show how a controller class can be implemented.
+*/
 class UserController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
@@ -22,8 +24,8 @@ class UserController implements ContainerInjectableInterface
 
 
     /**
-     * @var $data description
-     */
+    * @var $data description
+    */
     //private $data;
 
 
@@ -43,35 +45,35 @@ class UserController implements ContainerInjectableInterface
 
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
-     * @return object as a response object
-     */
-     public function indexActionGet() : object
-     {
-         $current = $this->di->session->get("UserLogged");
-         if (!$current) {
-             return $this->di->response->redirect("user/login");
-         }
+    * Description.
+    *
+    * @param datatype $variable Description
+    *
+    * @throws Exception
+    *
+    * @return object as a response object
+    */
+    public function indexActionGet() : object
+    {
+        $current = $this->di->session->get("UserLogged");
+        if (!$current) {
+            return $this->di->response->redirect("user/login");
+        }
 
-         return $this->di->response->redirect("user/profile/{$current}");
-     }
+        return $this->di->response->redirect("user/profile/{$current}");
+    }
 
 
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
-     * @return object as a response object
-     */
+    * Description.
+    *
+    * @param datatype $variable Description
+    *
+    * @throws Exception
+    *
+    * @return object as a response object
+    */
     public function loginAction() : object
     {
         $page = $this->di->get("page");
@@ -88,30 +90,57 @@ class UserController implements ContainerInjectableInterface
     }
 
     public function profileAction(int $id) : object
-     {
-         $page = $this->di->get("page");
-         $user = new User();
-         $user->setDb($this->di->get("dbqb"));
-         $user->find('id', $id);
+    {
+        $page = $this->di->get("page");
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->find('id', $id);
 
-         $page->add("user/profile", [
-             "user" => $user,
-         ]);
+        $page->add("user/profile", [
+            "user" => $user,
+        ]);
 
-         return $page->render([
-             "title" => $user->acronym,
-         ]);
-     }
+        $questions = new Question();
+        $questions->setDb($this->di->get("dbqb"));
+        $questions = $questions->findAllWhere("userId = ?", $id);
+        foreach($questions as $question) {
+            $page->add("user/questions", [
+                "question" => $question,
+                "user" => $user,
+            ]);
+        }
+
+        $page->add("user/answerTitle");
+
+        $answers = new Answer();
+        $answers->setDb($this->di->get("dbqb"));
+        $answers = $answers->findAllWhere("userId = ?", $id);
+
+        foreach($answers as $answer) {
+            $question = new Question();
+            $question->setDb($this->di->get("dbqb"));
+            $question->find("questionId", $answer->questionid);
+
+            $page->add("user/answers", [
+                "answer" => $answer,
+                "question" => $question,
+            ]);
+        }
+
+        return $page->render([
+            "title" => $user->acronym,
+        ]);
+    }
 
     /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
-     * @return object as a response object
-     */
+    * Description.
+    *
+    * @param datatype $variable Description
+    *
+    * @throws Exception
+    *
+    * @return object as a response object
+    */
     public function createAction() : object
     {
         $page = $this->di->get("page");

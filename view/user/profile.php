@@ -9,6 +9,8 @@ namespace Anax\View;
         <img class="gravatar" src="<?= "https://www.gravatar.com/avatar/" . md5(strtolower(trim($user->email))) . "?d=" . urlencode("https://www.gravatar.com/avatar") . "&s=" . 175; ?>" alt="" />
         <p>Registrerad: <i><?= $user->created ?></i></p>
     </div>
+
+
     <div class="profileBtn">
         <?php if ($this->di->session->get('UserLogged') == $user->id) : ?>
             <a class="commentBtn" href="<?= url("user/edit") ?>">Redigera</a>
@@ -18,3 +20,5 @@ namespace Anax\View;
         ?>
     </div>
 </div>
+
+<h1>Ställda Frågor</h1>

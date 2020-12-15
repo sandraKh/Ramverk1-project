@@ -11,10 +11,11 @@ if (!$question) : ?>
 return;
 endif;
 ?>
+<h1><?= $question->title ?> </h1>
 
+<div class="question">
 <table>
     <tr>
-        <td><h3><?= $question->title ?> </h3></td>
     </tr>
     <tr>
         <td><?= $question->text ?></td>
@@ -22,12 +23,13 @@ endif;
     <tr>
         <td>
             <p>
-                Skapad av: <?= $user->acronym ?><br>
+                Skapad av: <a href="<?= url("user/profile/{$user->id}"); ?>"> <?= $user->acronym ?></a><br>
                 <a class="commentBtn" href="<?= url("comment/create/{$question->questionId}"); ?>">Kommentera</a>
             </p>
-        </td>
     </tr>
 </table>
+</div>
+
 
 <p>Taggar:</p>
 <?php foreach ($tags as $tag) : ?>
@@ -37,7 +39,8 @@ endif;
     $userAnswer = $user->find('id', $comment->userId);
     if ($comment->answerId == 0):
         ?>
-        <?= $userAnswer->acronym . ": " . $comment->text ?><br><br>
+        <a href="<?= url("user/profile/{$userAnswer->id}"); ?>"> <?= $userAnswer->acronym ?></a>
+        <p><?=$comment->text?></p>
         <?php
     endif;
 endforeach; ?>
@@ -46,12 +49,14 @@ endforeach; ?>
 <?php foreach ($answers as $answer) :
     $userAnswer = $user->find('id', $answer->userId);
     ?>
-    <div class="comments">
-        <?= $userAnswer->acronym . ": " . $answer->text ?><br><br>
-        <div class="answers">
+    <div class="answers">
+        <a href="<?= url("user/profile/{$userAnswer->id}"); ?>"> <?= $userAnswer->acronym ?></a>
+        <p><?=$answer->text?></p>
+        <div class="comments">
             <?php foreach ($comments as $comment) :
              if ($comment->answerId == $answer->answerId): ?>
-             <?= $userAnswer->acronym . ": " . $comment->text ?><br><br>
+             <a href="<?= url("user/profile/{$userAnswer->id}"); ?>"> <?= $userAnswer->acronym ?></a>
+             <p><?=$comment->text?></p>
             <?php endif;
             endforeach;?>
         </div>
