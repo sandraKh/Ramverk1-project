@@ -11,6 +11,7 @@ use Anax\User\User;
 use Anax\Tag\Tag;
 use Anax\Answer\Answer;
 use Anax\Comment\Comment;
+use Anax\Filter\Filter;
 
 
 // use Anax\Route\Exception\ForbiddenException;
