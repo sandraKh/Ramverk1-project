@@ -54,6 +54,13 @@ class CreateAnswer extends FormModel
         $answer->userId = $this->di->get("session")->get("UserLogged");
         $answer->text = $this->form->value("Svara");
         $answer->save();
+
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->find("id",  $this->di->get("session")->get("UserLogged"));
+        $user->active = $user->active + 1;
+        $user->save();
+
         return true;
     }
 

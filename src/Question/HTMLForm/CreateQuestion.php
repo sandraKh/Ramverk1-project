@@ -6,6 +6,7 @@ use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Anax\Question\Question;
 use Anax\Tag\Tag;
+use Anax\User\User;
 
 /**
  * Form to create an item.
@@ -26,19 +27,18 @@ class CreateQuestion extends FormModel
                 "postId" => __CLASS__
             ],
             [
-                "userid" => [
-                    "type" => "hidden",
-                    "value" => $user
-                ],
-
                 "title" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
                 ],
-
                 "text" => [
                     "type" => "textarea",
                     "validation" => ["not_empty"],
+                ],
+
+                "user" => [
+                    "type"        => "hidden",
+                    "value"       => $user,
                 ],
                 "tags" => [
                     "type"  => "textarea",
@@ -58,7 +58,7 @@ class CreateQuestion extends FormModel
     {
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
-        $question->userId  = $this->form->value("userid");
+        $question->userId  = $this->form->value("user");
         $question->title = $this->form->value("title");
         $question->text = $this->form->value("text");
         $question->save();
@@ -77,6 +77,13 @@ class CreateQuestion extends FormModel
             $tag->tag = str_replace(' ', '', $individualTag);
             $tag->save();
             }
+
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->find("id", $this->form->value("user"));
+        $user->active = $user->active + 1;
+        $user->save();
+
         return true;
     }
 

@@ -127,6 +127,23 @@ class UserController implements ContainerInjectableInterface
             ]);
         }
 
+        $page->add("user/commentTitle");
+
+        $comments = new Comment();
+        $comments->setDb($this->di->get("dbqb"));
+        $comments = $comments->findAllWhere("userId = ?", $id);
+
+        foreach($comments as $comment) {
+            $question = new Question();
+            $question->setDb($this->di->get("dbqb"));
+            $question->find("questionId", $comment->questionId);
+
+            $page->add("user/comments", [
+                "comment" => $comment,
+                "question" => $question,
+            ]);
+        }
+
         return $page->render([
             "title" => $user->acronym,
         ]);

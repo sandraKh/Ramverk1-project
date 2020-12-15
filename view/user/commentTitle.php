@@ -4,4 +4,4 @@ namespace Anax\View;
 ?>
 
 
-<h1>Svar</h1>
+<h1>Kommentarer</h1>

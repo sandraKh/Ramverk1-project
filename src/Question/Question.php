@@ -33,8 +33,20 @@ class Question extends ActiveRecordModel
                         ->select()
                         ->from($this->tableName)
                         ->orderBy("Question.questionId DESC")
-                        ->limit("2")
+                        ->limit("3")
                         ->execute()
                         ->fetchAllClass(get_class($this));
+    }
+
+    public function findAllOrderBy($orderBy, $limit = 10000)
+    {
+        $this->checkDb();
+        return $this->db->connect()
+            ->select()
+            ->from($this->tableName)
+            ->orderBy($orderBy)
+            ->limit($limit)
+            ->execute()
+            ->fetchAllClass(get_class($this));
     }
 }

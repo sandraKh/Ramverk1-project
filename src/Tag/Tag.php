@@ -35,4 +35,17 @@ class Tag extends ActiveRecordModel
                         ->fetchAllClass(get_class($this));
     }
 
+    public function findAllOrderByGroupBy($orderBy, $groupBy, $limit = 1000, $select = "*")
+    {
+        $this->checkDb();
+        return $this->db->connect()
+            ->select($select)
+            ->from($this->tableName)
+            ->groupBy($groupBy)
+            ->orderBy($orderBy)
+            ->limit($limit)
+            ->execute()
+            ->fetchAllClass(get_class($this));
+    }
+
 }

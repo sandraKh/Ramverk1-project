@@ -8,6 +8,7 @@ use Anax\Answer\HTMLForm\CreateAnswer;
 use Anax\Question\Question;
 use Anax\User\User;
 use Anax\Tag\Tag;
+use Anax\Comment\Comment;
 use \Michelf\MarkdownExtra;
 
 
@@ -56,6 +57,10 @@ class AnswerController implements ContainerInjectableInterface
         $answers->setDb($this->di->get("dbqb"));
         $answers = $answers->findAllAnswerWhere("questionId", $id);
 
+        $comments = new comment();
+        $comments->setDb($this->di->get("dbqb"));
+        $comments = $comments->findAllCommentsWhere("questionId", $id);
+
         $form = new CreateAnswer($this->di, $id);
         $form->check();
 
@@ -69,6 +74,7 @@ class AnswerController implements ContainerInjectableInterface
             "user" => $user,
             "tags" => $tags,
             "answers" => $answers,
+            "comments" => $comments,
         ]);
 
         $page->add("question/crud/create", [

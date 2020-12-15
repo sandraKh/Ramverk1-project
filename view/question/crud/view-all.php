@@ -25,7 +25,6 @@ endif;
     <tr>
         <td>
             Fråga ställd av: <?= $userInfo->acronym ?></p>
-            <!-- <a href="<?= url("comment/create/{$item->questionId}"); ?>" class="commentbtn">Svara</a> -->
         </td>
     </tr>
 </table>

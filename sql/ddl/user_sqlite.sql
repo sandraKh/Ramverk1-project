@@ -16,7 +16,7 @@ CREATE TABLE User (
     "created" TIMESTAMP,
     "updated" DATETIME,
     "deleted" DATETIME,
-    "active" DATETIME
+    "active" INT
 );
 
 DROP TABLE IF EXISTS Question;

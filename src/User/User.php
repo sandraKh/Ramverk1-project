@@ -54,4 +54,28 @@ class User extends ActiveRecordModel
         return password_verify($password, $this->password);
     }
 
+    public function findAllOrderByGroupBy($orderBy, $groupBy, $limit = 1000, $select = "*")
+    {
+        $this->checkDb();
+        return $this->db->connect()
+            ->select($select)
+            ->from($this->tableName)
+            ->groupBy($groupBy)
+            ->orderBy($orderBy)
+            ->limit($limit)
+            ->execute()
+            ->fetchAllClass(get_class($this));
+    }
+
+    public function findAllOrderBy($orderBy, $limit = 10000)
+    {
+        $this->checkDb();
+        return $this->db->connect()
+            ->select()
+            ->from($this->tableName)
+            ->orderBy($orderBy)
+            ->limit($limit)
+            ->execute()
+            ->fetchAllClass(get_class($this));
+    }
 }

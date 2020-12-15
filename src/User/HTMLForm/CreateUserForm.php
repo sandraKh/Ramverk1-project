@@ -80,6 +80,7 @@ class CreateUserForm extends FormModel
           $passwordAgain = $this->form->value("password-again");
           $email = $this->form->value("email");
           $created   = date("Y/m/d G:i:s", time());
+          $active = 0;
 
           // Check password matches
           if ($password !== $passwordAgain ) {
@@ -92,8 +93,8 @@ class CreateUserForm extends FormModel
           $db = $this->di->get("dbqb");
           $password = password_hash($password, PASSWORD_DEFAULT);
           $db->connect()
-             ->insert("User", ["acronym", "password", "created", "email"])
-             ->execute([$acronym, $password, $created, $email]);
+             ->insert("User", ["acronym", "password", "created", "email", "active"])
+             ->execute([$acronym, $password, $created, $email, $active]);
 
           $this->form->addOutput("User was created.");
           return true;
