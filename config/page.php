@@ -12,7 +12,7 @@ return [
         "region" => "layout",
         "template" => "anax/v2/layout/dbwebb_se",
         "data" => [
-            "baseTitle" => " | ramverk1",
+            "baseTitle" => " | Boktipset",
             "bodyClass" => null,
             "favicon" => "favicon.ico",
             "htmlClass" => null,
@@ -33,8 +33,8 @@ return [
             "template" => "anax/v2/header/site_logo",
             "data" => [
                 "class" => "large",
-                "siteLogo"      => "image/theme/leaf_256x256.png",
-                "siteLogoAlt"   => "Löv",
+                "siteLogo"      => "img/theme/leaf_256x256.png",
+                "siteLogoAlt"   => "bok",
             ],
         ],
         [
@@ -42,9 +42,9 @@ return [
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
                 "homeLink"      => "",
-                "siteLogoText"  => "ramverk1",
-                "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
-                "siteLogoTextIconAlt" => "Löv-bild",
+                "siteLogoText"  => "Boktipset",
+                // "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
+                // "siteLogoTextIconAlt" => "Löv-bild",
             ],
         ],
         [
@@ -67,18 +67,18 @@ return [
             "data" => [
                 "class"  => "footer-column",
                 "columns" => [
-                    [
-                        "template" => "anax/v2/block/default",
-                        "contentRoute" => "block/footer-col-1",
-                    ],
-                    [
-                        "template" => "anax/v2/block/default",
-                        "contentRoute" => "block/footer-col-2",
-                    ],
-                    [
-                        "template" => "anax/v2/block/default",
-                        "contentRoute" => "block/footer-col-3",
-                    ]
+                    // [
+                    //     "template" => "anax/v2/block/default",
+                    //     "contentRoute" => "block/footer-col-1",
+                    // ],
+                    // [
+                    //     "template" => "anax/v2/block/default",
+                    //     "contentRoute" => "block/footer-col-2",
+                    // ],
+                    // [
+                    //     "template" => "anax/v2/block/default",
+                    //     "contentRoute" => "block/footer-col-3",
+                    // ]
                 ]
             ],
             "sort" => 1

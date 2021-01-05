@@ -8,7 +8,7 @@ namespace Anax\View;
 <?php foreach ($tags as $tag) : ?>
   <tr>
       <td>
-          <a class="pageTag" href="<?= url("tags/view/{$tag}"); ?>"> <?= $tag ?></a>
+          <li class="Tag"><a href="<?= url("tags/view/{$tag}"); ?>"><?= $tag ?></a></li>
       </td>
   </tr>
 <?php endforeach; ?>

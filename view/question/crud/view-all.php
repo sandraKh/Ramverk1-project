@@ -12,19 +12,13 @@ namespace Anax\View;
 endif;
 ?>
 
-<table>
-    <tr>
-    <tr>
-        <td><h3><a href="<?= url("question/view/{$item->questionId}"); ?>"><?= $item->title ?></a> </h3></td>
-    </tr>
-    <tr>
-        <div class="textQuestion">
-            <td><?= $item->text ?></td>
+<div class="question">
+
+    <h3><a href="<?= url("question/view/{$item->questionId}"); ?>"><?= $item->title ?></a> </h3>
+
+    <div class="textQuestion">
+        <p><?= $item->text ?></p>
+    </div>
+        <p>Fråga ställd av: <?= $userInfo->acronym ?></p>
+
         </div>
-    </tr>
-    <tr>
-        <td>
-            Fråga ställd av: <?= $userInfo->acronym ?></p>
-        </td>
-    </tr>
-</table>
