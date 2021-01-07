@@ -7,7 +7,7 @@ namespace Anax\View;
 
 <?php
 if (!$question) : ?>
-<p>Det finns ingen fråga att titta på.</p>
+<p>Det finns ingen fråga att titta på</p>
     <?php
     return;
 endif;
