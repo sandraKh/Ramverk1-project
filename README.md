@@ -9,6 +9,17 @@ För att kunna installera detta projekt och köra det själv så laddar man för
 https://github.com/sandraKh/ramverk1-project.git
 ```
 
+Uppdatera composer 
+```
+$ composer update
+```
+
+Och installera verktygen som behövs 
+
+```
+$ make install
+```
+
 Kör sedan följande kommandon för att skapa databasen.
 
 ```
