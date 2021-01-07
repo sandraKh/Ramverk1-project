@@ -56,10 +56,11 @@ endif;
                 <p><?=$answer->text?></p>
                 <div class="comments">
                     <?php foreach ($comments as $comment) :
+                        $userAns = $user->find('id', $comment->userId);
                         if ($comment->answerId == $answer->answerId) : ?>
                         <div class="commentsrow">
                             <div class="commentsShow">
-                                <p><?=$comment->text?>  -  <a  class = "user" href="<?= url("user/profile/{$userAnswer->id}"); ?>"> <?= $userAnswer->acronym ?></a></p>
+                                <p><?=$comment->text?>  -  <a  class = "user" href="<?= url("user/profile/{$userAns->id}"); ?>"> <?= $userAns->acronym ?></a></p>
                             </div>
                         </div>
                         <?php endif;
