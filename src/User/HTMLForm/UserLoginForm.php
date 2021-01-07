@@ -7,15 +7,15 @@ use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 
 /**
- * Example of FormModel implementation.
- */
+* Example of FormModel implementation.
+*/
 class UserLoginForm extends FormModel
 {
     /**
-     * Constructor injects with DI container.
-     *
-     * @param Psr\Container\ContainerInterface $di a service container
-     */
+    * Constructor injects with DI container.
+    *
+    * @param Psr\Container\ContainerInterface $di a service container
+    */
     public function __construct(ContainerInterface $di)
     {
         parent::__construct($di);
@@ -55,51 +55,40 @@ class UserLoginForm extends FormModel
 
 
     /**
-     * Callback for submit-button which should return true if it could
-     * carry out its work and false if something failed.
-     *
-     * @return boolean true if okey, false if something went wrong.
-     */
-     public function callbackSubmit()
-     {
-         // Get values from the submitted form
-         $acronym       = $this->form->value("user");
-         $password      = $this->form->value("password");
+    * Callback for submit-button which should return true if it could
+    * carry out its work and false if something failed.
+    *
+    * @return boolean true if okey, false if something went wrong.
+    */
+    public function callbackSubmit()
+    {
+        $acronym       = $this->form->value("user");
+        $password      = $this->form->value("password");
 
-         // Try to login
-         // $db = $this->di->get("dbqb");
-         // $db->connect();
-         // $user = $db->select("password")
-         //            ->from("User")
-         //            ->where("acronym = ?")
-         //            ->execute([$acronym])
-         //            ->fetch();
-         //
-         // // $user is false if user is not found
-         // if (!$user || !password_verify($password, $user->password)) {
-         //    $this->form->rememberValues();
-         //    $this->form->addOutput("User or password did not match.");
-         //    return false;
-         // }
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $res = $user->verifyPassword($acronym, $password);
 
-         $user = new User();
-         $user->setDb($this->di->get("dbqb"));
-         $res = $user->verifyPassword($acronym, $password);
-
-         if (!$res) {
+        if (!$res) {
             $this->form->rememberValues();
             $this->form->addOutput("User or password did not match.");
             return false;
-         }
+        }
 
-         $currUser = $user->find('acronym', $acronym);
-         $this->di->session->set('UserLogged', $currUser->id);
-         $this->form->addOutput("User " . $user->acronym . " logged in.");
-         return true;
-     }
+        $currUser = $user->find('acronym', $acronym);
+        $this->di->session->set('UserLogged', $currUser->id);
+        $this->form->addOutput("User " . $user->acronym . " logged in.");
+        return true;
+    }
 
-     public function register()
+    public function register()
     {
         $this->di->response->redirect("user/create");
+    }
+
+    public function callbackSuccess()
+    {
+        $id = $this->di->get("session")->get("UserLogged");
+        $this->di->get("response")->redirect("user/profile/{$id}")->send();
     }
 }

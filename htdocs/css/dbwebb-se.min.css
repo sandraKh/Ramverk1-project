@@ -190,4 +190,26 @@ h3 {
 .showAllDiv {
     margin-top: 1em;
     text-align: center;
+    margin-bottom: 1em;
+}
+
+.gravatar {
+    float: right;
+}
+
+.topUsers a {
+    color: black;
+    text-decoration: none;
+}
+
+.display {
+    display: contents;
+}
+
+.commentsShow {
+    display: inline;
+}
+
+.htmlform {
+    max-width: 100em;
 }

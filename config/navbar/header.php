@@ -11,7 +11,7 @@ return [
     "items" => [
         [
             "text" => "Start",
-            "url" => "",
+            "url" => "home",
             "title" => "Första sidan, börja här.",
         ],
         [

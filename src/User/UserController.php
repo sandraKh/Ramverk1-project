@@ -10,6 +10,7 @@ use Anax\User\HTMLForm\EditUserForm;
 use Anax\Answer\Answer;
 use Anax\Comment\Comment;
 use Anax\Question\Question;
+
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -20,8 +21,6 @@ use Anax\Question\Question;
 class UserController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
-
-
 
     /**
     * @var $data description
@@ -103,7 +102,7 @@ class UserController implements ContainerInjectableInterface
         $questions = new Question();
         $questions->setDb($this->di->get("dbqb"));
         $questions = $questions->findAllWhere("userId = ?", $id);
-        foreach($questions as $question) {
+        foreach ($questions as $question) {
             $page->add("user/questions", [
                 "question" => $question,
                 "user" => $user,
@@ -116,7 +115,7 @@ class UserController implements ContainerInjectableInterface
         $answers->setDb($this->di->get("dbqb"));
         $answers = $answers->findAllWhere("userId = ?", $id);
 
-        foreach($answers as $answer) {
+        foreach ($answers as $answer) {
             $question = new Question();
             $question->setDb($this->di->get("dbqb"));
             $question->find("questionId", $answer->questionid);
@@ -133,7 +132,7 @@ class UserController implements ContainerInjectableInterface
         $comments->setDb($this->di->get("dbqb"));
         $comments = $comments->findAllWhere("userId = ?", $id);
 
-        foreach($comments as $comment) {
+        foreach ($comments as $comment) {
             $question = new Question();
             $question->setDb($this->di->get("dbqb"));
             $question->find("questionId", $comment->questionId);

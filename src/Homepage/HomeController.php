@@ -12,6 +12,7 @@ use Anax\Tag\Tag;
 use Anax\User\User;
 use Anax\Comment\Comment;
 use Anax\Question\Question;
+
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -53,7 +54,7 @@ class HomeController implements ContainerInjectableInterface
 
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $userInfo = $user->findAllOrderBy("active DESC",  3);
+        $userInfo = $user->findAllOrderBy("active DESC", 3);
 
         $page->add("home/home-top-users", [
             "userInfo" => $userInfo,
@@ -63,5 +64,4 @@ class HomeController implements ContainerInjectableInterface
             "title" => "Startsida",
         ]);
     }
-
 }

@@ -79,7 +79,7 @@ class CreateQuestion extends FormModel
             $tag->questionId = $questionId;
             $tag->tag = str_replace(' ', '', $individualTag);
             $tag->save();
-            }
+        }
 
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
@@ -94,5 +94,4 @@ class CreateQuestion extends FormModel
     {
         $this->di->get("response")->redirect("question")->send();
     }
-
 }

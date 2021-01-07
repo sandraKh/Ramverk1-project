@@ -11,7 +11,6 @@ use Anax\Tag\Tag;
 use Anax\Comment\Comment;
 use \Michelf\MarkdownExtra;
 
-
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -32,8 +31,8 @@ class AnswerController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-     public function createAction(int $id) : object
-     {
+    public function createAction(int $id) : object
+    {
         $userId = $this->di->get("session")->get("UserLogged");
         if (!$userId) {
             $this->di->get("response")->redirect("user/login");

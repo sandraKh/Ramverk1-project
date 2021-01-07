@@ -1,6 +1,7 @@
 <?php
 
 namespace Anax\View;
+
 ?>
 
 <h2>Senaste Frågor Om Boktips</h2>

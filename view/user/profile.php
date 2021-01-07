@@ -1,6 +1,7 @@
 <?php
 
 namespace Anax\View;
+
 ?>
 
 <div>
@@ -15,8 +16,8 @@ namespace Anax\View;
                 <p>Rank: Guld</p>
             <?php elseif ($user->active > 5) : ?>
                 <p>Rank: Silver</p>
-            <?php
-                elseif($user->active > 0) : ?>
+                <?php
+            elseif ($user->active > 0) : ?>
                 <p>Rank: Brons</p>
 
             <?php endif;?>

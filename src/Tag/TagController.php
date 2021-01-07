@@ -9,7 +9,6 @@ use Anax\Question\Question;
 use Anax\User\User;
 use Anax\Tag\Tag;
 
-
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -29,7 +28,7 @@ class TagController implements ContainerInjectableInterface
         $tags->setDb($this->di->get("dbqb"));
         $allTags = $tags->findAll();
         $res = array();
-        foreach($allTags as $tag) {
+        foreach ($allTags as $tag) {
             if (!in_array($tag->tag, $res)) {
                 $res[] = $tag->tag;
             }

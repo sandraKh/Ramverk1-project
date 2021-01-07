@@ -2,12 +2,11 @@
 
 namespace Anax\View;
 
-
 ?>
 
 <?php if (!$item) : ?>
     <p>Det finns inga frågor att visa.</p>
-<?php
+    <?php
     return;
 endif;
 ?>
@@ -19,6 +18,6 @@ endif;
     <div class="textQuestion">
         <p><?= $item->text ?></p>
     </div>
-        <p>Fråga ställd av: <?= $userInfo->acronym ?></p>
+    <p>Fråga ställd av: <?= $userInfo->acronym ?></p>
 
-        </div>
+</div>

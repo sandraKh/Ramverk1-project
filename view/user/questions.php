@@ -1,12 +1,13 @@
 <?php
 
 namespace Anax\View;
+
 ?>
 
 
-<div class="userAllQuestions">
-    <a class="userAllQuestTitle" href="<?= url("question/view/{$question->questionId}"); ?>"> <?= $question->title ?></a>
-</div>
-<div class="userQuestion">
-    <p><?= $question->text ?></p>
+<div class="question">
+    <h3><a class="userAllQuestTitle" href="<?= url("question/view/{$question->questionId}"); ?>"> <?= $question->title ?></a></h3>
+    <div class="userQuestion">
+        <p><?= $question->text ?></p>
+    </div>
 </div>

@@ -13,14 +13,13 @@ use Anax\Answer\Answer;
 use Anax\Comment\Comment;
 use Anax\Filter\Filter;
 
-
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
 
 /**
- * A sample controller to show how a controller class can be implemented.
- */
+* A sample controller to show how a controller class can be implemented.
+*/
 class QuestionController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
@@ -35,16 +34,16 @@ class QuestionController implements ContainerInjectableInterface
 
         $page->add("question/crud/overview", []);
 
-        foreach($questions as $item) {
-        $user = new User();
-        $user->setDb($this->di->get("dbqb"));
-        $userInfo = $user->find('id', $item->userId);
-        // $mdfilter = new Filter()
-        // $mdfilter = $mdfilter->markdown($item->text);
-        $page->add("question/crud/view-all", [
-            "item" => $item,
-            // "filter" => $filter,
-            "userInfo" => $userInfo,
+        foreach ($questions as $item) {
+            $user = new User();
+            $user->setDb($this->di->get("dbqb"));
+            $userInfo = $user->find('id', $item->userId);
+            // $mdfilter = new Filter()
+            // $mdfilter = $mdfilter->markdown($item->text);
+            $page->add("question/crud/view-all", [
+                "item" => $item,
+                // "filter" => $filter,
+                "userInfo" => $userInfo,
             ]);
         }
 
@@ -74,43 +73,41 @@ class QuestionController implements ContainerInjectableInterface
     }
 
     public function viewAction(int $id) : object
-         {
-            $page = $this->di->get("page");
+    {
+        $page = $this->di->get("page");
 
-            $question = new Question();
-            $question->setDb($this->di->get("dbqb"));
-            $question = $question->find("questionId", $id);
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $question = $question->find("questionId", $id);
 
-            $user = new User();
-            $user->setDb($this->di->get("dbqb"));
-            $user->find('id', $question->userId);
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->find('id', $question->userId);
 
-            $tag = new Tag();
-            $tag->setDb($this->di->get("dbqb"));
-            $tags = $tag->findTag("Question.questionId", $id);
+        $tag = new Tag();
+        $tag->setDb($this->di->get("dbqb"));
+        $tags = $tag->findTag("Question.questionId", $id);
 
-            $answers = new Answer();
-            $answers->setDb($this->di->get("dbqb"));
-            $answers = $answers->findAllAnswerWhere("questionId", $id);
+        $answers = new Answer();
+        $answers->setDb($this->di->get("dbqb"));
+        $answers = $answers->findAllAnswerWhere("questionId", $id);
 
-            $comments = new Comment();
-            $comments->setDb($this->di->get("dbqb"));
-            $comments = $comments->findAllCommentsWhere("questionId", $id);
+        $comments = new Comment();
+        $comments->setDb($this->di->get("dbqb"));
+        $comments = $comments->findAllCommentsWhere("questionId", $id);
 
-             $page->add("question/crud/view-question", [
-                 "question" => $question,
-                 "comments" => $comments,
-                 "userId" => $this->di->get("session")->get("UserLogged"),
-                 "user" => $user,
-                 "tags" => $tags,
-                 "get" => $_GET,
-                 "answers" => $answers,
-             ]);
+        $page->add("question/crud/view-question", [
+            "question" => $question,
+            "comments" => $comments,
+            "userId" => $this->di->get("session")->get("UserLogged"),
+            "user" => $user,
+            "tags" => $tags,
+            "get" => $_GET,
+            "answers" => $answers,
+        ]);
 
-             return $page->render([
-                 "title" => "Fråga",
-             ]);
-         }
-
-
+        return $page->render([
+            "title" => "Fråga",
+        ]);
+    }
 }

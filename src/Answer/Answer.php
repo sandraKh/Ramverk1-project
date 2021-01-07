@@ -4,7 +4,6 @@ namespace Anax\Answer;
 
 use Anax\DatabaseActiveRecord\ActiveRecordModel;
 
-
 /**
  * A database driven model using the Active Record design pattern.
  */

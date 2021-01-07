@@ -1,6 +1,7 @@
 <?php
 
 namespace Anax\View;
+
 ?>
 
 <h2>Populära Taggar</h2>

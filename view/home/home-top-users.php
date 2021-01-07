@@ -12,5 +12,5 @@ $userInfo = isset($userInfo) ? $userInfo : null;
     <div class="topUsers">
         <a href="<?= url("user/profile/{$userInfos->id}"); ?>"> <?= $userInfos->acronym ?></a>
     </div>
-<?php
+    <?php
 endforeach; ?>
