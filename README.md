@@ -1,6 +1,9 @@
 # ramverk1-project
 
 [![Build Status](https://travis-ci.com/sandraKh/ramverk1-project.svg?branch=main)](https://travis-ci.com/sandraKh/ramverk1-project)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sandraKh/ramverk1-project/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/sandraKh/ramverk1-project/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/sandraKh/ramverk1-project/badges/build.png?b=main)](https://scrutinizer-ci.com/g/sandraKh/ramverk1-project/build-status/main)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/sandraKh/ramverk1-project/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
 
 
 För att kunna installera detta projekt och köra det själv så laddar man först ner repot.
